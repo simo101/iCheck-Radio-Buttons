@@ -8,3 +8,4 @@ test/.project
 *.lock
 *.bak
 .idea/
+.svn/
