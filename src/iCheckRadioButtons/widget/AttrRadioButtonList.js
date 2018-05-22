@@ -98,6 +98,7 @@ define([
 
         update: function (obj, callback) {
             console.log("AttrRadioButtonList - update");
+			this._clearValidations();
 
             var errorhandled = null,
                 validationhandle = null,
@@ -130,7 +131,7 @@ define([
                             val.removeAttribute(this.entity);
                         } else {
                             if (msg) {
-                                this.addError(msg);
+                                this._addValidation(msg);
                                 val.removeAttribute(this.entity);
                             }
                         }
@@ -174,6 +175,20 @@ define([
             // Execute callback.
             callback();
         },
+		
+		_clearValidations: function () {
+			domConstruct.destroy(this._alertdiv);
+		},
+
+		_addValidation: function (msg) {
+			this._alertdiv = domConstruct.create("div", {
+				class: 'alert alert-danger',
+				innerHTML: msg
+			});
+
+			this.domNode.appendChild(this._alertdiv);
+
+		},
 
         uninitialize: function () {
             if (this.handles) {
